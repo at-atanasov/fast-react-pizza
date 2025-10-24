@@ -23,6 +23,8 @@ export const fetchAddress = createAsyncThunk(
 
     // 3) Then we return an object with the data that we are interested in
     //Payload of the FULFILLED state
+    console.log("position" + position.latitude);
+    console.log("address" + address);
     return { position, address };
   },
 );
@@ -49,12 +51,14 @@ const userSlice = createSlice({
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
         state.position = action.payload.position;
+        console.log("state.position" + state.position);
         state.address = action.payload.address;
         state.status = "idle";
       })
       .addCase(fetchAddress.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error.message;
+        state.error =
+          "There was a problem getting your address. Make sure to fill this field!";
       }),
 });
 
